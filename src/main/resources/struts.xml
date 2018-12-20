@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <!-- 所有匹配*.action的请求都由struts2处理 -->
+    <constant name="struts.action.extension" value="action" />
+
+    <package name="crm" extends="struts-default" namespace="/">
+        <action name="user_regist" class="userAction">
+            <result name="login">/login.jsp</result>
+        </action>
+
+    </package>
+</struts>
