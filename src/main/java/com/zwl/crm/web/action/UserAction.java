@@ -20,8 +20,8 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
         this.userService = userService;
     }
 
-    public String user_regist(User user){
+    public String user_regist() throws Exception {
         userService.regist(user);
-        return LOGIN;
+        return "success";
     }
 }

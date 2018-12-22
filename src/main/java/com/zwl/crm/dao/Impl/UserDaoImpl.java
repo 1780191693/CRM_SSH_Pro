@@ -8,6 +8,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
     @Override
     public void save(User user) {
-        this.getHibernateTemplate().save(user);
+        if (this.getHibernateTemplate() != null) {
+            this.getHibernateTemplate().save(user);
+        }else {
+            System.out.println("hibernate空指针！！");
+        }
     }
 }
