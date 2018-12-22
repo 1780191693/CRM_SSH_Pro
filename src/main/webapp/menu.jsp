@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <HTML>
 <HEAD id=Head1>
 <TITLE>导航</TITLE>
@@ -104,7 +105,7 @@ A.active {
 											cellPadding=2 width=155 align=center border=0>
 											<TBODY>
 												<TR>
-													<TD class=menuSmall><A class=style2 href="${ pageContext.request.contextPath }/jsp/customer/add.jsp" 
+													<TD class=menuSmall><A class=style2 href="<s:url action="customer_saveUI"/>"
 														target=main>－ 新增客户</A></TD>
 												</TR>
 												<TR> 

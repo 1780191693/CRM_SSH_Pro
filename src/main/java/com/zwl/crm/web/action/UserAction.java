@@ -28,7 +28,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 
     public String user_login() throws Exception{
         User login = userService.login(user);
-        System.out.println("login="+login);
         if (login == null){
             this.addActionError("用户名或密码错误!");
             return LOGIN;

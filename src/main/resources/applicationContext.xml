@@ -37,32 +37,51 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>userMapping/User.hbm.xml</value>
+				<value>Mapping/User.hbm.xml</value>
+				<value>Mapping/Customer.hbm.xml</value>
+				<value>Mapping/BaseDict.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
 
-	<!--<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">-->
-		<!--<property name="sessionFactory" ref="sessionFactory"/>-->
-	<!--</bean>-->
-
-	<!--配置Action  一定要配置成多例模式-->
+	<!--配置UserAction  一定要配置成多例模式-->
 	<bean id="userAction" class="com.zwl.crm.web.action.UserAction" scope="prototype">
 		<property name="userService" ref="userService"/>
 	</bean>
-
 	<bean id="userService" class="com.zwl.crm.service.Impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
 	</bean>
-
 	<bean id="userDao" class="com.zwl.crm.dao.Impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+
+	<!--CustomerAction-->
+	<bean id="customerAction" class="com.zwl.crm.web.action.CustomerAction" scope="prototype">
+		<property name="customerService" ref="customerService"/>
+	</bean>
+	<bean id="customerService" class="com.zwl.crm.service.Impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"/>
+	</bean>
+	<bean id="customerDao" class="com.zwl.crm.dao.Impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<!--BaseDictAction-->
+	<bean id="baseDictAction" class="com.zwl.crm.web.action.BaseDictAction" scope="prototype">
+		<property name="baseDictService" ref="baseDictService"/>
+	</bean>
+	<bean id="baseDictService" class="com.zwl.crm.service.Impl.BaseDictServiceImpl">
+		<property name="baseDictDao" ref="baseDictDao"/>
+	</bean>
+	<bean id="baseDictDao" class="com.zwl.crm.dao.Impl.BaseDictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+
 	<!--配置spring事务管理-->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-
 	<!--开启注解事务-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 

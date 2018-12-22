@@ -7,6 +7,16 @@
 <TITLE>添加客户</TITLE> 
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css rel=stylesheet>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.0.min.js"></script>
+<%--异步加载--%>
+<script>
+	$(function () {
+		//页面一加载就执行  异步查询字典的数据
+		$.post("${pageContext.request.contextPath}/baseDict_findByTypeCode",{"dict_type_code":"002"},function (data) {
+
+		},"");
+	})
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1 action="<s:url action="user_regist"/>" method=post>
@@ -38,8 +48,7 @@
 						</TABLE>
 						
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
-						  
-						    
+
 							<TR>
 								<td>客户名称：</td>
 								<td>
@@ -109,4 +118,5 @@
 		</TABLE>
 	</FORM>
 </BODY>
+
 </HTML>
