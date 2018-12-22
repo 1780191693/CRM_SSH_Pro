@@ -46,4 +46,15 @@ public class User {
     public void setUser_state(String user_state) {
         this.user_state = user_state;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", user_code='" + user_code + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", user_password='" + user_password + '\'' +
+                ", user_state='" + user_state + '\'' +
+                '}';
+    }
 }

@@ -6,8 +6,12 @@
     <constant name="struts.action.extension" value="action" />
 
     <package name="default" extends="struts-default" namespace="/">
-        <action name="user_*" class="com.zwl.crm.web.action.UserAction" method="user_regist">
+        <action name="user_regist" class="userAction" method="user_regist">
             <result name="success">/login.jsp</result>
+        </action>
+        <action name="user_login" class="userAction" method="user_login">
+            <result name="success" type="redirect">/index.jsp</result>
+            <result name="login">/login.jsp</result>
         </action>
     </package>
 </struts>
