@@ -7,12 +7,13 @@
 <TITLE>客户列表</TITLE> 
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css rel=stylesheet>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 <SCRIPT language=javascript>
 	function to_page(page){
 		if(page){
 			$("#page").val(page);
 		}
+		// alert(page);
 		document.customerForm.submit();
 		
 	}
@@ -21,9 +22,8 @@
 </HEAD>
 <BODY>
 	<FORM id="customerForm" name="customerForm"
-		action="${pageContext.request.contextPath }/customerServlet?method=list"
+		action="<s:url action="customer_findAll"/>"
 		method=post>
-		
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
@@ -50,8 +50,7 @@
 								<TD height=2></TD>
 							</TR>
 						</TABLE>
-						<TABLE borderColor=#cccccc cellSpacing=0 cellPadding=0
-							width="100%" align=center border=0>
+						<TABLE borderColor=#cccccc cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
 							<TBODY>
 								<TR>
 									<TD height=25>
@@ -62,8 +61,7 @@
 													<TD><INPUT class=textbox id=sChannel2
 														style="WIDTH: 80px" maxLength=50 name="custName"></TD>
 													
-													<TD><INPUT class=button id=sButton2 type=submit
-														value=" 筛选 " name=sButton2></TD>
+													<TD><INPUT class=button id=sButton2 type=submit value=" 筛选 " name=sButton2></TD>
 												</TR>
 											</TBODY>
 										</TABLE>
@@ -73,7 +71,7 @@
 								<TR>
 									<TD>
 										<TABLE id=grid
-											style="BORDER-TOP-WIDTH: 0px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0px; BORDER-LEFT-COLOR: #cccccc; BORDER-BOTTOM-WIDTH: 0px; BORDER-BOTTOM-COLOR: #cccccc; WIDTH: 100%; BORDER-TOP-COLOR: #cccccc; FONT-STYLE: normal; BACKGROUND-COLOR: #cccccc; BORDER-RIGHT-WIDTH: 0px; TEXT-DECORATION: none; BORDER-RIGHT-COLOR: #cccccc"
+											style="FONT-WEIGHT: normal; WIDTH: 100%; FONT-STYLE: normal; BACKGROUND-COLOR: #cccccc; TEXT-DECORATION: none; border: 0 #cccccc;border-right-width: 0px;border-bottom-width: 0px;"
 											cellSpacing=1 cellPadding=2 rules=all border=0>
 											<TBODY>
 												<TR
@@ -86,15 +84,15 @@
 													<TD>手机</TD>
 													<TD>操作</TD>
 												</TR>
-												<s:iterator var="c" value="list">
+												<s:iterator value="list">
 												<TR
 													style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-													<TD><s:property value="#c.cust_name"/></TD>
-													<TD><s:property value="#c.cust_level"/></TD>
-													<TD><s:property value="#c.cust_source"/></TD>
-													<TD><s:property value="#c.cust_industry"/></TD>
-													<TD><s:property value="#c.cust_phone"/></TD>
-													<TD><s:property value="#c.cust_mobile"/></TD>
+													<TD><s:property value="cust_name"/></TD>
+													<TD><s:property value="baseDictLevel.dict_item_name"/></TD>
+													<TD><s:property value="baseDictSource.dict_item_name"/></TD>
+													<TD><s:property value="baseDictIndustry.dict_item_name"/></TD>
+													<TD><s:property value="cust_phone"/></TD>
+													<TD><s:property value="cust_mobile"/></TD>
 													<TD>
 													<a href="${pageContext.request.contextPath }/">修改</a>
 													&nbsp;&nbsp;
@@ -106,26 +104,39 @@
 										</TABLE>
 									</TD>
 								</TR>
-								
 								<TR>
 									<TD><SPAN id=pagelink>
 											<DIV
 												style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												共[<B>${total}</B>]条记录,[<B>${totalPage}</B>]页
-												,每页显示
-												<select name="pageSize">
-												
-												<option value="15" <c:if test="${pageSize==1 }">selected</c:if>>1</option>
-												<option value="30" <c:if test="${pageSize==30 }">selected</c:if>>30</option>
+												共[<B><s:property value="totalCount"/></B>]条记录&nbsp;共[<B><s:property value="totalPage"/></B>]页
+												&nbsp;每页显示
+												<select name="pageSize" onchange="to_page()">
+												    <option value="10"  <s:if test="pageSize == 10">selected</s:if> >10</option>
+												    <option value="15"  <s:if test="pageSize == 15">selected</s:if> >15</option>
+												    <option value="20"  <s:if test="pageSize == 20">selected</s:if> >20</option>
 												</select>
 												条
-												[<A href="javascript:to_page(${page-1})">前一页</A>]
-												<B>${page}</B>
-												[<A href="javascript:to_page(${page+1})">后一页</A>] 
+	                             				<s:if test="currPage != 1">
+													[<A href="javascript:to_page(1)">首页</A>]
+													[<A href="javascript:to_page(<s:property value="currPage - 1"/>)">前一页</A>]
+												</s:if>&nbsp;
+												<B>
+												<s:iterator var="i" begin="1" end="totalPage">
+													<s:if test="#i == currPage">
+														<s:property value="#i"/>
+													</s:if>
+													<s:else>
+														<a href="javascript:to_page(<s:property value="#i"/>)"><s:property value="#i"/></a>
+													</s:else>
+												</s:iterator>
+												</B>&nbsp;
+												<s:if test="currPage != totalPage">
+												    [<A href="javascript:to_page(<s:property value="currPage + 1"/>)">后一页</A>]
+													[<A href="javascript:to_page(<s:property value="totalPage"/>)">尾页</A>]
+												</s:if>&nbsp;
 												到
-												<input type="text" size="3" id="page" name="page" />
+												<input type="text" size="3" id="page" name="currPage" />
 												页
-												
 												<input type="button" value="Go" onclick="to_page()"/>
 											</DIV>
 									</SPAN></TD>

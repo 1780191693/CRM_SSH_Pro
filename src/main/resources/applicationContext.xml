@@ -30,7 +30,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
@@ -76,7 +76,6 @@
 	<bean id="baseDictDao" class="com.zwl.crm.dao.Impl.BaseDictDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
-
 
 	<!--配置spring事务管理-->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

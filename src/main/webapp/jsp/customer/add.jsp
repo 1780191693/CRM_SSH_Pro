@@ -9,7 +9,7 @@
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css rel=stylesheet>
 </HEAD>
 <BODY>
-	<FORM id=form1 name=form1 action="<s:url action="user_regist"/>" method=post>
+	<FORM id=form1 name=form1 action="<s:url action="customer_save"/>" method=post>
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
@@ -44,7 +44,7 @@
 								</td>
 								<td>客户级别 ：</td>
 								<td>
-								    <select id="cust_level" style="width: 180px">
+								    <select id="cust_level" name="baseDictLevel.dict_id" style="width: 180px">
 										<option>-请选择-</option>
 									</select>
 								</td>
@@ -52,13 +52,13 @@
 							<TR>
 								<td>信息来源 ：</td>
 								<td>
-								    <select id="cust_source" style="width: 180px;">
+								    <select id="cust_source" name="baseDictSource.dict_id" style="width: 180px;">
 										<option>-请选择-</option>
 									</select>
 								</td>
 								<td>所属行业 ：</td>
 								<td>
-								    <select id="cust_industry" style="width: 180px">
+								    <select id="cust_industry" name="baseDictIndustry.dict_id" style="width: 180px">
 										<option>-请选择-</option>
 									</select>
 								</td>

@@ -12,6 +12,7 @@
         <property name="cust_phone" column="cust_phone"/>
         <property name="cust_mobile" column="cust_mobile"/>
         <!--配置客户与字典的多对一关系-->
+        <!--容易出现延迟加载的地方-->
         <many-to-one name="baseDictSource" class="com.zwl.crm.domain.BaseDict" column="cust_source"/>
         <many-to-one name="baseDictIndustry" class="com.zwl.crm.domain.BaseDict" column="cust_industry"/>
         <many-to-one name="baseDictLevel" class="com.zwl.crm.domain.BaseDict" column="cust_level"/>

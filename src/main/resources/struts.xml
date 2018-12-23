@@ -6,6 +6,7 @@
     <constant name="struts.action.extension" value="action" />
 
     <package name="default" extends="struts-default" namespace="/">
+        <!--userAction-->
         <action name="user_regist" class="userAction" method="user_regist">
             <result name="success">/login.jsp</result>
         </action>
@@ -13,12 +14,22 @@
             <result name="success" type="redirect">/index.jsp</result>
             <result name="login">/login.jsp</result>
         </action>
+
+        <!--customerAction-->
         <action name="customer_saveUI" class="customerAction" method="save_UI">
             <result name="saveUI">/jsp/customer/add.jsp</result>
         </action>
+        <action name="customer_save" class="customerAction" method="saveCustomer">
+            <result name="success"/>
+        </action>
+        <action name="customer_findAll" class="customerAction" method="findAllCustomer">
+            <result name="findAll">/jsp/customer/list.jsp</result>
+        </action>
+
         <!--BaseDictAction-->
         <action name="baseDict_findByTypeCode" class="baseDictAction" method="findByTypeCode">
             <result name="success"/>
         </action>
+
     </package>
 </struts>
