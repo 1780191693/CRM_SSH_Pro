@@ -10,6 +10,7 @@ public class BaseDictServiceImpl implements BaseDictService {
 
     private BaseDictDao baseDictDao;
     public void setBaseDictDao(BaseDictDao baseDictDao) {
+        this.baseDictDao = baseDictDao;
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.zwl.crm.domain.BaseDict;
 import com.zwl.crm.service.BaseDictService;
 import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+import org.apache.struts2.ServletActionContext;
 
 import java.util.List;
 
@@ -20,12 +22,15 @@ public class BaseDictAction extends ActionSupport implements ModelDriven<BaseDic
         this.baseDictService = baseDictService;
     }
 
-    public String findByTypeCode(){
-        System.out.println("jquery方法执行了！！");
+    public String findByTypeCode() throws Exception{
         List<BaseDict> typeCode = baseDictService.findByTypeCode(baseDict.getDict_type_code());
         /*将list转成json格式*/
-        JSONArray jsonArray = JSONArray.fromObject(typeCode);
+        JsonConfig jsonConfig = new JsonConfig(); //去掉不想要的列值
+        jsonConfig.setExcludes(new String[]{"dict_sort","dict_enable","dict_memo"});
+        JSONArray jsonArray = JSONArray.fromObject(typeCode,jsonConfig);
+        ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
         System.out.println(jsonArray.toString());
+        ServletActionContext.getResponse().getWriter().println(jsonArray.toString()); //以json格式输出到页面上
         return NONE;
     }
 }
