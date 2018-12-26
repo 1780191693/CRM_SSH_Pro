@@ -9,7 +9,7 @@
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css rel=stylesheet>
 </HEAD>
 <BODY>
-	<FORM id=form1 name=form1 action="<s:url action="customer_save"/>" method=post>
+	<FORM id=form1 name=form1 action="<s:url action="customer_save"/>" method=post enctype="multipart/form-data">
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
@@ -38,11 +38,11 @@
 						</TABLE>
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<TR>
-								<td>客户名称：</td>
+								<td>客户名称:</td>
 								<td>
 								<INPUT class=textbox id=sChannel2 style="WIDTH: 180px" maxLength=50 name="cust_name">
 								</td>
-								<td>客户级别 ：</td>
+								<td>客户级别 :</td>
 								<td>
 								    <select id="cust_level" name="baseDictLevel.dict_id" style="width: 180px">
 										<option>-请选择-</option>
@@ -50,13 +50,13 @@
 								</td>
 							</TR>
 							<TR>
-								<td>信息来源 ：</td>
+								<td>信息来源 :</td>
 								<td>
 								    <select id="cust_source" name="baseDictSource.dict_id" style="width: 180px;">
 										<option>-请选择-</option>
 									</select>
 								</td>
-								<td>所属行业 ：</td>
+								<td>所属行业 :</td>
 								<td>
 								    <select id="cust_industry" name="baseDictIndustry.dict_id" style="width: 180px">
 										<option>-请选择-</option>
@@ -64,17 +64,23 @@
 								</td>
 							</TR>
 							<TR>
-								<td>固定电话 ：</td>
+								<td>固定电话 :</td>
 								<td>
 								<INPUT class=textbox id=sChannel6
 														style="WIDTH: 180px" maxLength=50 name="cust_phone">
 								</td>
-								<td>移动电话 ：</td>
+								<td>移动电话 :</td>
 								<td>
 								<INPUT class=textbox id=sChannel7
 														style="WIDTH: 180px" maxLength=50 name="cust_mobile">
 								</td>
 							</TR>
+							<tr>
+								<td>资质证明: </td>
+								<td>
+									<input type="file" name="upload" style="width: 200px;">
+								</td>
+							</tr>
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit

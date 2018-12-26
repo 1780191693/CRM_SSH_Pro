@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.zwl.crm.domain.User" table="sys_user" catalog="" >
+    <class name="com.zwl.crm.domain.User" table="sys_user">
         <id name="user_id" column="user_id">
             <generator class="native"/>
         </id>
