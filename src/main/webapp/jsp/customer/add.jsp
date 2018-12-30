@@ -36,9 +36,10 @@
 								<TD height=2></TD>
 							</TR>
 						</TABLE>
+						<s:actionerror/><s:fielderror/>
 						<TABLE cellSpacing=0 cellPadding=5  border=0>
 							<TR>
-								<td>客户名称:</td>
+								<td>客户名称 :</td>
 								<td>
 								<INPUT class=textbox id=sChannel2 style="WIDTH: 180px" maxLength=50 name="cust_name">
 								</td>
@@ -76,15 +77,14 @@
 								</td>
 							</TR>
 							<tr>
-								<td>资质证明: </td>
+								<td>资质证明 : </td>
 								<td>
-									<input type="file" name="upload" style="width: 200px;">
+									<input type="file" name="upload" style="width: 180px;">
 								</td>
 							</tr>
 							<tr>
 								<td rowspan=2>
-								<INPUT class=button id=sButton2 type=submit
-														value=" 保存 " name=sButton2>
+								<INPUT class=button id=sButton2 type=submit value=" 保存 " name=sButton2>
 								</td>
 							</tr>
 						</TABLE>

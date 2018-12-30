@@ -38,4 +38,22 @@ public class CustomerServiceImpl implements CustomerService {
         pageBean.setList(list);
         return pageBean;
     }
+
+    @Override
+    public Customer findById(Long cust_id) {
+        //两种方法将customer放入页面
+        //①手动压栈  回显：<s:propertry values="cust_name">
+        //②模型驱动的对象默认就在值栈里  回显：<s:propertry values="model.cust_name">
+        return customerDao.findById(cust_id);
+    }
+
+    @Override
+    public void deleteCustomer(Customer customer) {
+        customerDao.delete(customer);
+    }
+
+    @Override
+    public void customer_update(Customer customer) {
+        customerDao.customer_update(customer);
+    }
 }

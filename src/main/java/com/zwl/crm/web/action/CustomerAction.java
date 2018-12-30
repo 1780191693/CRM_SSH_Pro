@@ -7,10 +7,9 @@ import com.zwl.crm.Utils.UploadUtils;
 import com.zwl.crm.domain.Customer;
 import com.zwl.crm.domain.PageBean;
 import com.zwl.crm.service.CustomerService;
-import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.util.FileCopyUtils;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.File;
 
@@ -33,6 +32,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
             currPage = 1;
         this.currPage = currPage;
     }
+
 
     private Integer pageSize = 10;
     public void setPageSize(Integer pageSize) {
@@ -75,18 +75,70 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
             //文件上传
             File dictFile = new File(path + path1 + "/" + uuidFileName);
             FileUtils.copyFile(upload,dictFile);
+            customer.setCust_prove(path + path1 + "/" + uuidFileName);
         }
         customerService.saveCustomer(customer);
-        return NONE;
+        return "saveSuccess";
     }
 
     public String findAllCustomer() throws Exception {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Customer.class);
-        System.out.println("currPage = " + currPage);
-        System.out.println("pageSize = " + pageSize);
+        if (customer.getCust_name() != null){
+            detachedCriteria.add(Restrictions.like("cust_name","%"+customer.getCust_name()+"%"));
+        }
+        if (customer.getBaseDictSource() !=null && customer.getBaseDictSource().getDict_id() != null && !"".equals(customer.getBaseDictSource().getDict_id())){
+            detachedCriteria.add(Restrictions.eq("baseDictSource.dict_id",customer.getBaseDictSource().getDict_id()));
+        }
+        if (customer.getBaseDictLevel() !=null && customer.getBaseDictLevel().getDict_id() != null && !"".equals(customer.getBaseDictLevel().getDict_id())){
+            detachedCriteria.add(Restrictions.eq("baseDictLevel.dict_id",customer.getBaseDictLevel().getDict_id()));
+        }
+        if (customer.getBaseDictIndustry() !=null && customer.getBaseDictIndustry().getDict_id() != null && !"".equals(customer.getBaseDictIndustry().getDict_id())){
+            detachedCriteria.add(Restrictions.eq("baseDictIndustry.dict_id",customer.getBaseDictIndustry().getDict_id()));
+        }
         PageBean<Customer> allCustomer = customerService.findAllCustomer(detachedCriteria, currPage,pageSize);
         ActionContext.getContext().getValueStack().push(allCustomer);
         return "findAll";
     }
 
+    public String deleteCustomer() throws Exception {
+        customer = customerService.findById(customer.getCust_id());
+        if (customer.getCust_prove() != null){
+            File file = new File(customer.getCust_prove());
+            if (file.exists()){
+                file.delete();
+            }
+        }
+        customerService.deleteCustomer(customer);
+        return "success";
+    }
+
+    public String editCustomer() throws Exception {
+        customer = customerService.findById(this.customer.getCust_id());
+        System.out.println(customer);
+        return "success";
+    }
+
+    public String customer_update() throws Exception{
+        //是否选择新文件，有则删除旧的，保存新的，否则继续使用旧的
+        if (upload != null){
+            String cust_prove = customer.getCust_prove();
+            if (cust_prove != null || !"".equals(cust_prove)){
+                File file = new File(cust_prove);
+                file.delete();
+            }
+            //上传新文件
+            String path = "C:/upload";
+            String uuidFileName = UploadUtils.getUuidFileName(uploadFileName);
+            String path1 = UploadUtils.getPath(uuidFileName);
+            String url = path+path1;
+            File file = new File(url);
+            if (!file.exists())
+                file.mkdirs();
+            File dictFile = new File(url + "/" + uuidFileName);
+            FileUtils.copyFile(upload,dictFile);
+            customer.setCust_prove(url+"/"+uuidFileName);
+        }
+        customerService.customer_update(customer);
+        return SUCCESS;
+    }
 }

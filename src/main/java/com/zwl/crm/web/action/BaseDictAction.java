@@ -29,7 +29,6 @@ public class BaseDictAction extends ActionSupport implements ModelDriven<BaseDic
         jsonConfig.setExcludes(new String[]{"dict_sort","dict_enable","dict_memo"});
         JSONArray jsonArray = JSONArray.fromObject(typeCode,jsonConfig);
         ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
-        System.out.println(jsonArray.toString());
         ServletActionContext.getResponse().getWriter().println(jsonArray.toString()); //以json格式输出到页面上
         return NONE;
     }

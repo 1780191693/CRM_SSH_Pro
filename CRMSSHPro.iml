@@ -52,7 +52,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="sessionFactory" value="52b0b95f-c2c0-4608-83f4-73aec7cfba0d" />
+          <unit-entry name="sessionFactory" value="b33d7f03-d54f-408f-8966-a9f9d4dead8d" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
